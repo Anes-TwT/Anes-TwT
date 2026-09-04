@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="TOO COLD Drop 03 - four cold-weather pieces rated to comfort limit, with a temperature scrubber for matching a piece to the day.">
+<title>TOO COLD Drop 03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..400&display=swap">
+<style>
+:root{
+  --ground:#EDF2F6;
+  --surface:#FFFFFF;
+  --well:#E4EBF1;
+  --rime:#CEDBE4;
+  --ink:#0E1F2B;
+  --slate:#5C7385;
+  --glacier:#0B6FA8;
+  --glacier-soft:#A9CEE4;
+  --flare:#D9481F;
+  --particle:rgba(92,115,133,.30);
+  --focus:#0B6FA8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#081018;
+    --surface:#0E1D28;
+    --well:#0C1A24;
+    --rime:#1E3140;
+    --ink:#E6F0F6;
+    --slate:#8CA6B6;
+    --glacier:#4FBBEC;
+    --glacier-soft:#1D5875;
+    --flare:#FF6B3D;
+    --particle:rgba(140,166,182,.32);
+    --focus:#4FBBEC;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#081018;
+  --surface:#0E1D28;
+  --well:#0C1A24;
+  --rime:#1E3140;
+  --ink:#E6F0F6;
+  --slate:#8CA6B6;
+  --glacier:#4FBBEC;
+  --glacier-soft:#1D5875;
+  --flare:#FF6B3D;
+  --particle:rgba(140,166,182,.32);
+  --focus:#4FBBEC;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:'Newsreader',Georgia,'Times New Roman',serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.disp{font-family:'Archivo','Helvetica Neue',Arial,sans-serif}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.eyebrow{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.7rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);
+}
+:where(a):focus-visible,:where(button):focus-visible,:where(input):focus-visible{
+  outline:2px solid var(--focus);outline-offset:3px;
+}
+
+/* ---------- top bar ---------- */
+.bar{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:18px 0;border-bottom:1px solid var(--rime);
+  flex-wrap:wrap;
+}
+.bar-mark{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 118,'wght' 800;
+  font-size:.98rem;letter-spacing:.02em;text-transform:uppercase;
+}
+.bar-nav{display:flex;gap:24px;flex-wrap:wrap}
+.bar-nav a{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);text-decoration:none;padding-bottom:2px;
+  border-bottom:1px solid transparent;
+}
+.bar-nav a:hover{color:var(--ink);border-bottom-color:var(--glacier)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:56px 0 44px;overflow:hidden}
+#frost{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+.hero>.wrap{position:relative;z-index:1}
+.live{display:inline-flex;align-items:center;gap:9px}
+.dot{
+  width:7px;height:7px;border-radius:50%;background:var(--flare);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--flare) 18%,transparent);
+}
+@media (prefers-reduced-motion: no-preference){
+  .dot{animation:pulse 2.6s ease-in-out infinite}
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.wordmark{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 125,'wght' 850;
+  font-size:clamp(3.4rem,15.5vw,11.5rem);
+  line-height:.84;letter-spacing:-.015em;text-transform:uppercase;
+  margin:22px 0 0;text-wrap:balance;
+}
+.wordmark span{display:block}
+.wordmark .cold{color:var(--glacier)}
+.lede{
+  font-size:clamp(1.12rem,2.1vw,1.42rem);
+  line-height:1.5;max-width:34ch;margin:26px 0 0;color:var(--ink);
+  font-weight:350;
+}
+.lede em{font-style:italic;color:var(--slate)}
+
+.readout{
+  margin-top:40px;display:grid;gap:1px;background:var(--rime);
+  border:1px solid var(--rime);
+  grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+}
+.cell{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:7px}
+.cell-k{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);
+}
+.cell-v{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:1.55rem;font-weight:500;font-variant-numeric:tabular-nums;
+  line-height:1;letter-spacing:-.02em;
+}
+.cell-v.accent{color:var(--glacier)}
+
+/* ---------- sections ---------- */
+.sec{padding:76px 0;border-top:1px solid var(--rime)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:34px}
+.sec-title{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 112,'wght' 780;
+  font-size:clamp(1.55rem,3.6vw,2.35rem);
+  text-transform:uppercase;letter-spacing:-.01em;line-height:1;margin:6px 0 0;
+}
+
+/* ---------- drop rows ---------- */
+.rows{display:flex;flex-direction:column}
+.row{
+  display:grid;
+  grid-template-columns:minmax(0,2.3fr) minmax(0,1fr) 88px 96px;
+  gap:26px;align-items:start;
+  padding:24px 0;border-top:1px solid var(--rime);
+  transition:opacity .22s ease;
+}
+.rows .row:last-child{border-bottom:1px solid var(--rime)}
+.row.dim{opacity:.34}
+.row-name{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 110,'wght' 700;
+  font-size:1.14rem;text-transform:uppercase;letter-spacing:.005em;line-height:1.15;
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+}
+.row-spec{color:var(--slate);font-size:.96rem;margin-top:7px;line-height:1.5}
+.row-d{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.86rem;font-variant-numeric:tabular-nums;padding-top:4px;
+}
+.row-d .sub{
+  display:block;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:6px;
+}
+.row-price{text-align:right}
+.tag{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;
+  border:1px solid var(--glacier);color:var(--glacier);
+  padding:2px 7px;border-radius:2px;white-space:nowrap;
+}
+.tag.on{background:var(--glacier);color:var(--surface)}
+@media (max-width:820px){
+  .row{grid-template-columns:1fr 1fr;gap:16px 20px}
+  .row-main{grid-column:1/-1}
+  .row-price{text-align:left}
+}
+
+/* ---------- thermal chart ---------- */
+.chart{margin-top:8px}
+.chart-ctl{
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  padding:20px 22px;background:var(--surface);border:1px solid var(--rime);margin-bottom:34px;
+}
+.chart-ctl label{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);
+}
+#temp{flex:1 1 240px;accent-color:var(--glacier);min-width:200px;height:22px}
+.ctl-read{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:1.5rem;font-weight:500;font-variant-numeric:tabular-nums;
+  min-width:5.4ch;text-align:right;letter-spacing:-.02em;
+}
+.ctl-note{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);
+  flex:1 1 100%;
+}
+.scale{position:relative;padding:0 30px}
+.band{padding:15px 0}
+.band-k{
+  display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-bottom:9px;
+}
+.band-n{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.71rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.band-r{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.71rem;color:var(--slate);font-variant-numeric:tabular-nums;
+}
+.track{position:relative;height:12px;background:var(--well);border:1px solid var(--rime)}
+.fill{position:absolute;top:-1px;bottom:-1px;background:var(--glacier-soft);border:1px solid var(--glacier)}
+.fill.deep{background:var(--glacier)}
+.cap{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--glacier)}
+.axis{position:relative;height:34px;margin-top:10px;border-top:1px solid var(--rime)}
+.tick{
+  position:absolute;top:0;transform:translateX(-50%);padding-top:9px;
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.66rem;color:var(--slate);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.tick::before{content:"";position:absolute;top:0;left:50%;width:1px;height:5px;background:var(--rime)}
+.marker{
+  position:absolute;top:0;bottom:0;width:1px;background:var(--flare);
+  transform:translateX(-50%);pointer-events:none;
+}
+.marker::after{
+  content:attr(data-t);position:absolute;top:1px;left:50%;transform:translateX(-50%);
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.6rem;letter-spacing:.08em;background:var(--flare);color:#fff;
+  padding:2px 6px;white-space:nowrap;border-radius:2px;
+}
+.mark-zone{position:relative;padding-top:22px}
+
+@media (max-width:620px){
+  .wrap{padding:0 18px}
+  .scale{padding:0 12px}
+  .band-k{flex-wrap:wrap;gap:2px 12px}
+  .band-n,.band-r{font-size:.66rem}
+  .cell-v{font-size:1.25rem}
+  .chart-ctl{padding:16px;gap:14px}
+  .ctl-read{text-align:left;min-width:0}
+  .sec{padding:56px 0}
+  .hero{padding:40px 0 34px}
+}
+
+/* ---------- manifesto ---------- */
+.manifesto{max-width:62ch}
+.manifesto p{margin:0 0 22px}
+.manifesto p:first-of-type{
+  font-size:1.32rem;line-height:1.5;font-weight:350;
+}
+.manifesto p:last-child{margin-bottom:0}
+.pull{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 108,'wght' 720;
+  font-size:clamp(1.3rem,3vw,1.9rem);text-transform:uppercase;line-height:1.12;
+  border-left:3px solid var(--glacier);padding-left:22px;margin:38px 0;
+  max-width:22ch;
+}
+
+/* ---------- size table ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--rime);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.8rem;font-variant-numeric:tabular-nums;
+  padding:13px 18px;text-align:right;border-bottom:1px solid var(--rime);
+}
+th{
+  font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--slate);
+  font-weight:500;
+}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+caption{
+  caption-side:bottom;text-align:left;padding:14px 18px;color:var(--slate);
+  font-size:.86rem;border-top:1px solid var(--rime);
+}
+
+/* ---------- notify ---------- */
+.notify{
+  background:var(--surface);border:1px solid var(--rime);
+  padding:clamp(28px,5vw,52px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;
+}
+@media (max-width:760px){.notify{grid-template-columns:1fr;gap:28px}}
+.notify h2{
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 115,'wght' 800;
+  font-size:clamp(1.7rem,4vw,2.6rem);text-transform:uppercase;line-height:.98;
+  margin:10px 0 14px;letter-spacing:-.01em;
+}
+.notify p{margin:0;color:var(--slate);max-width:36ch}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input[type=email]{
+  flex:1 1 200px;min-width:0;
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:.85rem;
+  padding:14px 16px;background:var(--ground);color:var(--ink);
+  border:1px solid var(--rime);border-radius:0;
+}
+input[type=email]::placeholder{color:var(--slate)}
+button{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;
+  padding:14px 26px;border:1px solid var(--ink);background:var(--ink);color:var(--ground);
+  cursor:pointer;border-radius:0;transition:background .18s ease,color .18s ease;
+}
+button:hover{background:var(--glacier);border-color:var(--glacier);color:#fff}
+.formnote{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.68rem;letter-spacing:.08em;color:var(--slate);margin-top:14px;min-height:1.2em;
+}
+.formnote.ok{color:var(--glacier)}
+
+/* ---------- footer ---------- */
+.foot{
+  border-top:1px solid var(--rime);padding:34px 0 56px;
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.foot span{
+  font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);
+}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="bar">
+    <div class="bar-mark">Too Cold</div>
+    <nav class="bar-nav">
+      <a href="#drop">The Drop</a>
+      <a href="#thermal">Thermal</a>
+      <a href="#sizing">Sizing</a>
+      <a href="#notify">Notify Me</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="frost" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow live"><span class="dot"></span>Manifest 03 &middot; Cold room open</div>
+    <h1 class="wordmark"><span>Too</span><span class="cold">Cold</span></h1>
+    <p class="lede">Four pieces, each rated to the temperature it actually holds &mdash; <em>not the one that photographs well.</em></p>
+
+    <div class="readout">
+      <div class="cell">
+        <span class="cell-k">Cold room</span>
+        <span class="cell-v">&minus;18.4&deg;C</span>
+      </div>
+      <div class="cell">
+        <span class="cell-k">Drop opens</span>
+        <span class="cell-v accent mono" id="cd">--:--:--</span>
+      </div>
+      <div class="cell">
+        <span class="cell-k">Pieces</span>
+        <span class="cell-v">04</span>
+      </div>
+      <div class="cell">
+        <span class="cell-k">Coldest rating</span>
+        <span class="cell-v">&minus;40&deg;C</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="drop">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">01.10.26 &middot; 09:00 GMT</div>
+        <h2 class="sec-title">The Drop</h2>
+      </div>
+      <div class="eyebrow">Rated range &middot; Weight &middot; Price</div>
+    </div>
+
+    <div class="rows" id="rows">
+      <article class="row" data-min="-40" data-max="-18">
+        <div class="row-main">
+          <div class="row-name">Whiteout Parka <span class="tag" data-tag>Rated</span></div>
+          <div class="row-spec">800-fill European goose down, 70D ripstop nylon shell, storm-baffle construction.</div>
+        </div>
+        <div class="row-d"><span class="sub">Rated range</span>&minus;40&deg; / &minus;18&deg;C</div>
+        <div class="row-d"><span class="sub">Weight</span>1,240 g</div>
+        <div class="row-d row-price"><span class="sub">Price</span>&pound;680</div>
+      </article>
+
+      <article class="row" data-min="-18" data-max="-2">
+        <div class="row-main">
+          <div class="row-name">Glacier Shell <span class="tag" data-tag>Rated</span></div>
+          <div class="row-spec">3-layer membrane, 20,000 mm / 20,000 g, fully taped seams, helmet-compatible hood.</div>
+        </div>
+        <div class="row-d"><span class="sub">Rated range</span>&minus;18&deg; / &minus;2&deg;C</div>
+        <div class="row-d"><span class="sub">Weight</span>520 g</div>
+        <div class="row-d row-price"><span class="sub">Price</span>&pound;420</div>
+      </article>
+
+      <article class="row" data-min="-8" data-max="6">
+        <div class="row-main">
+          <div class="row-name">Frost Grid Fleece <span class="tag" data-tag>Rated</span></div>
+          <div class="row-spec">280 gsm polyester grid fleece, high-loft channels, flatlock shoulder seams.</div>
+        </div>
+        <div class="row-d"><span class="sub">Rated range</span>&minus;8&deg; / +6&deg;C</div>
+        <div class="row-d"><span class="sub">Weight</span>340 g</div>
+        <div class="row-d row-price"><span class="sub">Price</span>&pound;180</div>
+      </article>
+
+      <article class="row" data-min="-12" data-max="10">
+        <div class="row-main">
+          <div class="row-name">Base Layer 200 <span class="tag" data-tag>Rated</span></div>
+          <div class="row-spec">200 gsm merino, 17.5 micron, offset shoulder seams, gusseted underarm.</div>
+        </div>
+        <div class="row-d"><span class="sub">Rated range</span>&minus;12&deg; / +10&deg;C</div>
+        <div class="row-d"><span class="sub">Weight</span>210 g</div>
+        <div class="row-d row-price"><span class="sub">Price</span>&pound;120</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="thermal">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Comfort range, still air, moving</div>
+        <h2 class="sec-title">Thermal Range</h2>
+      </div>
+    </div>
+
+    <div class="chart">
+      <div class="chart-ctl">
+        <label for="temp">Set temperature</label>
+        <input type="range" id="temp" min="-45" max="10" step="1" value="-18"
+               aria-describedby="ctlnote">
+        <output class="ctl-read mono" id="tread">&minus;18&deg;C</output>
+        <div class="ctl-note" id="ctlnote">Pieces rated for this temperature stay lit. Everything else dims.</div>
+      </div>
+
+      <div class="scale">
+        <div class="mark-zone">
+          <div class="marker" id="marker" data-t="-18&deg;C" style="left:49.091%"></div>
+
+          <div class="band" data-min="-40" data-max="-18">
+            <div class="band-k">
+              <span class="band-n">Whiteout Parka</span>
+              <span class="band-r">&minus;40&deg; &rarr; &minus;18&deg;C</span>
+            </div>
+            <div class="track">
+              <div class="fill deep" style="left:9.091%;width:40%"></div>
+              <div class="cap" style="left:9.091%"></div>
+            </div>
+          </div>
+
+          <div class="band" data-min="-18" data-max="-2">
+            <div class="band-k">
+              <span class="band-n">Glacier Shell</span>
+              <span class="band-r">&minus;18&deg; &rarr; &minus;2&deg;C</span>
+            </div>
+            <div class="track">
+              <div class="fill" style="left:49.091%;width:29.091%"></div>
+              <div class="cap" style="left:49.091%"></div>
+            </div>
+          </div>
+
+          <div class="band" data-min="-8" data-max="6">
+            <div class="band-k">
+              <span class="band-n">Frost Grid Fleece</span>
+              <span class="band-r">&minus;8&deg; &rarr; +6&deg;C</span>
+            </div>
+            <div class="track">
+              <div class="fill" style="left:67.273%;width:25.455%"></div>
+              <div class="cap" style="left:67.273%"></div>
+            </div>
+          </div>
+
+          <div class="band" data-min="-12" data-max="10">
+            <div class="band-k">
+              <span class="band-n">Base Layer 200</span>
+              <span class="band-r">&minus;12&deg; &rarr; +10&deg;C</span>
+            </div>
+            <div class="track">
+              <div class="fill" style="left:60%;width:40%"></div>
+              <div class="cap" style="left:60%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="axis">
+          <span class="tick" style="left:9.091%">&minus;40&deg;</span>
+          <span class="tick" style="left:27.273%">&minus;30&deg;</span>
+          <span class="tick" style="left:45.455%">&minus;20&deg;</span>
+          <span class="tick" style="left:63.636%">&minus;10&deg;</span>
+          <span class="tick" style="left:81.818%">0&deg;</span>
+          <span class="tick" style="left:100%">+10&deg;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="manifesto">
+      <div class="eyebrow">Why the numbers are on the label</div>
+      <p>Most cold-weather marketing sells a feeling. A photograph of a mountain, a word like &ldquo;arctic,&rdquo; a jacket that has never been below freezing.</p>
+      <p>We test to comfort limit rather than survival limit &mdash; the temperature a person can stand still in for an hour without losing function, not the one they can survive for twenty minutes. It is a less flattering number. It is the one that matters when you are waiting for a bus at six in the morning.</p>
+      <div class="pull">If it is not on the label, we did not measure it.</div>
+      <p>Every rating on this page came off the same rig: still air, one hour, moving between 0 and 2 met. Fill power is measured after conditioning, not out of the bag. Weights are for a size M, garment only.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sizing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Body measurements, centimetres</div>
+        <h2 class="sec-title">Sizing</h2>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <caption>Measure over a base layer. Between sizes on chest, take the larger &mdash; every piece is cut to layer over the one rated above it.</caption>
+        <thead>
+          <tr><th scope="col">Size</th><th scope="col">Chest</th><th scope="col">Sleeve</th><th scope="col">Back length</th><th scope="col">Hem</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>XS</td><td>96</td><td>61</td><td>66</td><td>102</td></tr>
+          <tr><td>S</td><td>102</td><td>63</td><td>68</td><td>108</td></tr>
+          <tr><td>M</td><td>108</td><td>65</td><td>70</td><td>114</td></tr>
+          <tr><td>L</td><td>114</td><td>66</td><td>72</td><td>120</td></tr>
+          <tr><td>XL</td><td>120</td><td>68</td><td>74</td><td>126</td></tr>
+          <tr><td>XXL</td><td>126</td><td>69</td><td>76</td><td>132</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="notify">
+  <div class="wrap">
+    <div class="notify">
+      <div>
+        <div class="eyebrow">Drop 03 &middot; 01.10.26 &middot; 09:00 GMT</div>
+        <h2>Get the cold room code</h2>
+        <p>One message when the drop opens. Nothing between now and then.</p>
+      </div>
+      <div>
+        <form id="notifyform" novalidate>
+          <input type="email" id="email" placeholder="you@example.com" aria-label="Email address" required>
+          <button type="submit">Notify me</button>
+        </form>
+        <div class="formnote" id="formnote" role="status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot">
+    <span>Too Cold &mdash; Manifest 03</span>
+    <span>Ratings tested to comfort limit</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var MIN = -45, MAX = 10, SPAN = MAX - MIN;
+  var pct = function (t) { return ((t - MIN) / SPAN) * 100; };
+  var fmt = function (t) { return (t > 0 ? '+' : t < 0 ? '−' : '') + Math.abs(t) + '°C'; };
+
+  /* ---- countdown ---- */
+  var DROP = Date.UTC(2026, 9, 1, 9, 0, 0);
+  var cd = document.getElementById('cd');
+  function tick() {
+    var d = DROP - Date.now();
+    if (d <= 0) { cd.textContent = 'LIVE NOW'; return false; }
+    var s = Math.floor(d / 1000);
+    var days = Math.floor(s / 86400);
+    var p = function (n) { return String(n).padStart(2, '0'); };
+    cd.textContent = days + 'd ' + p(Math.floor(s % 86400 / 3600)) + ':' +
+                     p(Math.floor(s % 3600 / 60)) + ':' + p(s % 60);
+    return true;
+  }
+  if (tick()) { setInterval(tick, 1000); }
+
+  /* ---- temperature scrubber ---- */
+  var slider = document.getElementById('temp');
+  var marker = document.getElementById('marker');
+  var tread  = document.getElementById('tread');
+  var rows   = Array.prototype.slice.call(document.querySelectorAll('#rows .row'));
+  var bands  = Array.prototype.slice.call(document.querySelectorAll('.band'));
+
+  function apply() {
+    var t = parseInt(slider.value, 10);
+    marker.style.left = pct(t) + '%';
+    marker.setAttribute('data-t', fmt(t));
+    tread.textContent = fmt(t);
+
+    rows.forEach(function (row) {
+      var lo = +row.dataset.min, hi = +row.dataset.max;
+      var inRange = t >= lo && t <= hi;
+      row.classList.toggle('dim', !inRange);
+      var tag = row.querySelector('[data-tag]');
+      tag.classList.toggle('on', inRange);
+      tag.textContent = inRange ? 'Rated ' + fmt(t) : 'Out of range';
+    });
+
+    bands.forEach(function (band) {
+      var lo = +band.dataset.min, hi = +band.dataset.max;
+      band.style.opacity = (t >= lo && t <= hi) ? '1' : '.4';
+    });
+  }
+  slider.addEventListener('input', apply);
+  apply();
+
+  /* ---- notify form ---- */
+  var form = document.getElementById('notifyform');
+  var note = document.getElementById('formnote');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = document.getElementById('email').value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) {
+      note.className = 'formnote';
+      note.textContent = 'That address is missing an @ or a domain. Check it and try again.';
+      return;
+    }
+    note.className = 'formnote ok';
+    note.textContent = 'On the list. One message on 01.10.26 at 09:00 GMT.';
+    form.reset();
+  });
+
+  /* ---- ambient frost ---- */
+  var cv = document.getElementById('frost');
+  var ctx = cv.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var dark = window.matchMedia('(prefers-color-scheme: dark)');
+  var bits = [], raf = null, w = 0, h = 0;
+
+  function colour() {
+    var v = getComputedStyle(document.documentElement).getPropertyValue('--particle').trim();
+    return v || 'rgba(92,115,133,.30)';
+  }
+
+  function seed() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.min(w * h / 9000, 130));
+    bits = [];
+    for (var i = 0; i < n; i++) {
+      bits.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.7 + 0.5,
+        vx: (Math.random() - 0.5) * 0.16,
+        vy: Math.random() * 0.22 + 0.05
+      });
+    }
+  }
+
+  function paint() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = colour();
+    for (var i = 0; i < bits.length; i++) {
+      var b = bits[i];
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function step() {
+    for (var i = 0; i < bits.length; i++) {
+      var b = bits[i];
+      b.x += b.vx; b.y += b.vy;
+      if (b.y - b.r > h) { b.y = -b.r; b.x = Math.random() * w; }
+      if (b.x < -b.r) { b.x = w + b.r; } else if (b.x > w + b.r) { b.x = -b.r; }
+    }
+    paint();
+    raf = requestAnimationFrame(step);
+  }
+
+  function run() {
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+    seed();
+    if (reduce.matches) { paint(); } else { step(); }
+  }
+
+  run();
+  var t0 = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(t0);
+    t0 = setTimeout(run, 180);
+  });
+  reduce.addEventListener('change', run);
+  dark.addEventListener('change', paint);
+})();
+</script>
+</body>
+</html>
