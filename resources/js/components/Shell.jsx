@@ -108,7 +108,7 @@ export function CartDrawer() {
           </button>
         </div>
 
-        <div className="drawer-body">
+        <div className="drawer-body" data-native-scroll>
           {items.length === 0 ? (
             <div className="empty">
               <h4>Nothing yet</h4>

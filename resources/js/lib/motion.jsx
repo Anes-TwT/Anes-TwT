@@ -173,6 +173,85 @@ export function useScrollSkew(max = 2.6) {
   return ref;
 }
 
+/*
+ * Damped scrolling. The wheel no longer moves the page directly — it moves a
+ * target, and each frame the page eases toward it. Sections arrive slowly
+ * enough that the reveals actually read instead of flicking past.
+ *
+ * Native layout is untouched (position: sticky still works) because this
+ * drives window.scrollTo rather than transforming a wrapper. Touch devices and
+ * anyone asking for reduced motion keep the platform's own scrolling.
+ */
+let damped = null;
+
+export function smoothScrollTo(y) {
+  if (damped) { damped(y); return; }
+  window.scrollTo({ top: y, behavior: reduced() ? 'auto' : 'smooth' });
+}
+
+export function useSmoothScroll({ ease = 0.065, strength = 0.75 } = {}) {
+  useEffect(() => {
+    if (reduced() || window.matchMedia('(pointer: coarse)').matches) return undefined;
+
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';   // ours, not the CSS engine's
+
+    let target = window.scrollY;
+    let current = target;
+    let frame = null;
+    let driving = false;
+
+    const limit = () => Math.max(0, root.scrollHeight - window.innerHeight);
+    const clamp = (y) => Math.max(0, Math.min(limit(), y));
+
+    const step = () => {
+      current += (target - current) * ease;
+      if (Math.abs(target - current) < 0.4) {
+        current = target;
+        window.scrollTo(0, current);
+        frame = null;
+        driving = false;
+        return;
+      }
+      window.scrollTo(0, current);
+      frame = requestAnimationFrame(step);
+    };
+
+    const drive = (y) => {
+      target = clamp(y);
+      driving = true;
+      if (!frame) frame = requestAnimationFrame(step);
+    };
+
+    const onWheel = (event) => {
+      // the bag drawer and any other inner scroller keep native behaviour
+      if (event.target.closest?.('[data-native-scroll]')) return;
+      if (document.body.classList.contains('locked')) return;
+      if (event.ctrlKey) return;                       // pinch zoom
+      event.preventDefault();
+      drive(target + event.deltaY * strength);
+    };
+
+    // keyboard, anchors and any programmatic jump resync the target
+    const onScroll = () => {
+      if (!driving) { target = window.scrollY; current = window.scrollY; }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    damped = drive;
+
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+      root.style.scrollBehavior = previous;
+      damped = null;
+    };
+  }, [ease, strength]);
+}
+
 export function Marquee({ items, variant = '', reverse = false }) {
   const run = [...items, ...items];
   return (

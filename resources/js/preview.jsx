@@ -13,7 +13,8 @@ import Checkout from './Pages/Checkout.jsx';
 import Confirmation from './Pages/Confirmation.jsx';
 
 import { CartDrawer, Nav, Store } from './components/Shell.jsx';
-import { Cursor, Intro, ScrollProgress, Toast, reduced, useArmAnimations } from './lib/motion.jsx';
+import { Cursor, Intro, ScrollProgress, Toast, reduced, useArmAnimations, useSmoothScroll } from './lib/motion.jsx';
+import { smoothScrollTo } from './lib/motion.jsx';
 import { bySlug, lineKey } from './lib/catalog.js';
 
 import '../css/app.css';
@@ -37,6 +38,7 @@ function parse(path) {
 
 function App() {
   useArmAnimations();
+  useSmoothScroll();
 
   const [route, setRoute] = useState(() => parse('/'));
   const [jumpTo, setJumpTo] = useState(null);
@@ -54,7 +56,7 @@ function App() {
 
     if (sameHome && hash) {
       const node = document.getElementById(hash);
-      if (node) node.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' });
+      if (node) smoothScrollTo(node.getBoundingClientRect().top + window.scrollY);
       return;
     }
 

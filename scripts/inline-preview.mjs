@@ -16,30 +16,23 @@ let css = readFileSync(resolve(out, 'preview.css'), 'utf8');
 const js = readFileSync(resolve(out, 'preview.js'), 'utf8');
 
 /*
- * Pull the font @import out to a <link> so it is not a blocking CSS fetch.
- * Vite emits either `@import url("...")` or a bare `@import "..."`, and the
- * URL itself contains semicolons (wght@400;500;...), so the match has to run
- * to the closing quote rather than to the first ; or ).
+ * The stylesheet already carries the vendored faces: resources/css/app.css
+ * imports resources/fonts/fonts.css, and vite.preview.config.js inlines every
+ * asset, so the woff2 files arrive here as data URIs. Nothing to rewrite —
+ * just refuse to emit a page that would reach for a third-party font host.
  */
-const IMPORT = /@import\s+(?:url\(\s*)?(?:"([^"]*)"|'([^']*)'|([^;\s)]+))\s*\)?\s*;/g;
+const remote = css.match(/url\(\s*['"]?https?:[^)]*\)/g);
+if (remote) {
+  throw new Error(`Built CSS still points off-machine: ${remote.join(', ')}`);
+}
 
-const fonts = [];
-css = css.replace(IMPORT, (match, dq, sq, bare) => {
-  const href = dq ?? sq ?? bare;
-  if (!href.startsWith('https://fonts.googleapis.com')) return match;
-  fonts.push(href);
-  return '';
-});
-
-if (fonts.length === 0) {
-  throw new Error('No Google Fonts @import found in the built CSS - check IMPORT.');
+const embedded = (css.match(/url\(data:font/g) || []).length;
+if (embedded === 0) {
+  throw new Error('No fonts embedded — check assetsInlineLimit in vite.preview.config.js.');
 }
 
 const head = [
   '<title>TOO COLD Drop 01</title>',
-  '<link rel="preconnect" href="https://fonts.googleapis.com">',
-  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-  ...fonts.map((href) => `<link rel="stylesheet" href="${href}">`),
   `<style>${css}</style>`,
 ].join('\n');
 
@@ -64,4 +57,8 @@ writeFileSync(
   ].join('\n')
 );
 
-console.log('inlined ->', 'index.html', `${Math.round((head.length + body.length) / 1024)} KB`);
+console.log(
+  'inlined -> index.html',
+  `${Math.round((head.length + body.length) / 1024)} KB`,
+  `(${embedded} font faces embedded, no network needed)`
+);

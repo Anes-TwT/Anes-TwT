@@ -4,7 +4,7 @@
    No radii anywhere. Hard edges, hairlines, condensed display type.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400..900&family=Archivo:wght@400;500;600;700&family=Chivo+Mono:wght@400;500&display=swap');
+@import '../fonts/fonts.css';
 
 :root{
   --void:#070708;

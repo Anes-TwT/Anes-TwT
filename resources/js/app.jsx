@@ -8,13 +8,14 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp, router, usePage } from '@inertiajs/react';
 
 import { CartDrawer, Nav, Store } from './components/Shell.jsx';
-import { Cursor, Intro, ScrollProgress, Toast, useArmAnimations } from './lib/motion.jsx';
+import { Cursor, Intro, ScrollProgress, Toast, useArmAnimations, useSmoothScroll } from './lib/motion.jsx';
 import { bySlug, lineKey } from './lib/catalog.js';
 
 import '../css/app.css';
 
 function Layout({ children }) {
   useArmAnimations();
+  useSmoothScroll();
   const { props } = usePage();
   const [open, setOpen] = useState(false);
   const [toast, setToast] = useState('');

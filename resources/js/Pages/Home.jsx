@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Tee from '../components/Tee.jsx';
 import { BrandMarquee, Btn, Footer, useStore } from '../components/Shell.jsx';
-import { Reveal, SplitText, useScrollSkew } from '../lib/motion.jsx';
+import { Reveal, SplitText, smoothScrollTo, useScrollSkew } from '../lib/motion.jsx';
 import { money, PRODUCTS } from '../lib/catalog.js';
 
 function Card({ product, index, total }) {
@@ -49,7 +49,7 @@ export default function Home({ products = PRODUCTS, jumpTo }) {
   useEffect(() => {
     if (!jumpTo) return;
     const node = document.getElementById(jumpTo);
-    if (node) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (node) smoothScrollTo(node.getBoundingClientRect().top + window.scrollY);
   }, [jumpTo]);
 
   return (
