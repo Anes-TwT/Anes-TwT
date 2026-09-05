@@ -15,10 +15,25 @@ const out = resolve(root, 'public/preview');
 let css = readFileSync(resolve(out, 'preview.css'), 'utf8');
 const js = readFileSync(resolve(out, 'preview.js'), 'utf8');
 
-/* Pull the font @import out to a <link> so it is not a runtime CSS fetch. */
-const fonts = [...css.matchAll(/@import\s+url\((['"]?)(https:\/\/fonts\.googleapis[^)'"]+)\1\);?/g)]
-  .map((m) => m[2]);
-css = css.replace(/@import\s+url\((['"]?)https:\/\/fonts\.googleapis[^)'"]+\1\);?/g, '');
+/*
+ * Pull the font @import out to a <link> so it is not a blocking CSS fetch.
+ * Vite emits either `@import url("...")` or a bare `@import "..."`, and the
+ * URL itself contains semicolons (wght@400;500;...), so the match has to run
+ * to the closing quote rather than to the first ; or ).
+ */
+const IMPORT = /@import\s+(?:url\(\s*)?(?:"([^"]*)"|'([^']*)'|([^;\s)]+))\s*\)?\s*;/g;
+
+const fonts = [];
+css = css.replace(IMPORT, (match, dq, sq, bare) => {
+  const href = dq ?? sq ?? bare;
+  if (!href.startsWith('https://fonts.googleapis.com')) return match;
+  fonts.push(href);
+  return '';
+});
+
+if (fonts.length === 0) {
+  throw new Error('No Google Fonts @import found in the built CSS - check IMPORT.');
+}
 
 const head = [
   '<title>TOO COLD Drop 01</title>',
